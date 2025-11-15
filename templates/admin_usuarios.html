@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Admin Usuarios{% endblock %}
+
+{% block content %}
+<h3>Administración de Usuarios</h3>
+
+<table class="table table-bordered mt-3">
+  <thead class="table-dark"><tr><th>Nombre</th><th>Usuario</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr></thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>{{ u.nombre }}</td>
+      <td>{{ u.usuario }}</td>
+      <td>{{ u.tipo }}</td>
+      <td>{{ u.estado }}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="{{ url_for('actualizar_estado', id=u.id, estado='aprobado') }}">Aprobar</a>
+        <a class="btn btn-danger btn-sm" href="{{ url_for('actualizar_estado', id=u.id, estado='rechazado') }}">Rechazar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Historial Asistencia{% endblock %}
+
+{% block content %}
+<h4>Historial de asistencia — {{ alumno.nombre }}</h4>
+<table class="table table-striped">
+  <thead><tr><th>Fecha</th><th>Estado</th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    <tr><td>{{ r.fecha }}</td><td>{{ r.estado }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

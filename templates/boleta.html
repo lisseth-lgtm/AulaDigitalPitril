@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Boleta - {{ alumno.nombre }}{% endblock %}
+
+{% block content %}
+<h3>Boleta: {{ alumno.nombre }}</h3>
+
+<h5>Calificaciones</h5>
+<table class="table">
+  <thead><tr><th>Asignatura</th><th>Nota</th></tr></thead>
+  <tbody>
+    {% for n in notas %}
+    <tr><td>{{ n.asignatura }}</td><td>{{ n.nota }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

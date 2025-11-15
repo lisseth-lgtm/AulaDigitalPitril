@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Asistencia{% endblock %}
+
+{% block content %}
+<h3>Asistencia</h3>
+
+<form method="POST" class="mb-3">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label">Curso</label>
+      <select name="curso" class="form-select">
+        <option value="">Selecciona</option>
+        {% for c in cursos %}
+        <option value="{{ c }}" {% if c == selected_curso %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary">Ver alumnos</button>
+    </div>
+  </div>
+</form>
+
+{% if alumnos %}
+<form method="POST">
+  <input type="hidden" name="fecha" value="{{ (now().strftime('%Y-%m-%d')) if not request.form.get('fecha') else request.form.get('fecha') }}">
+  <div class="mb-3">
+    <label class="form-label">Fecha</label>
+    <input type="date" name="fecha" class="form-control" value="{{ now().strftime('%Y-%m-%d') }}">
+  </div>
+
+  <table class="table">
+    <thead class="table-light"><tr><th>Alumno</th><th>Estado</th></tr></thead>
+    <tbody>
+      {% for a in alumnos %}
+      <tr>
+        <td>{{ a.nombre }}</td>
+        <td>
+          <select name="estado_{{ a.id }}" class="form-select">
+            <option value="presente">Presente</option>
+            <option value="ausente">Ausente</option>
+            <option value="tarde">Tarde</option>
+          </select>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <button class="btn btn-success">Guardar asistencia</button>
+</form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Panel{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action" href="{{ url_for('panel') }}">Inicio</a>
+      <a class="list-group-item list-group-item-action" href="{{ url_for('estudiantes') }}">Estudiantes</a>
+      <a class="list-group-item list-group-item-action" href="{{ url_for('asistencia') }}">Asistencia</a>
+      <a class="list-group-item list-group-item-action" href="{{ url_for('calificaciones') }}">Calificaciones</a>
+      {% if session.get('tipo') == 'admin' %}
+      <a class="list-group-item list-group-item-action" href="{{ url_for('admin_usuarios') }}">Administrar usuarios</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <h3>Bienvenido, {{ usuario }}</h3>
+    <p class="text-muted">Panel principal</p>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3">
+          <h5>Alumnos</h5>
+          <p class="mb-0">Ver y gestionar estudiantes</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3">
+          <h5>Asistencia</h5>
+          <p class="mb-0">Registrar asistencia</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3">
+          <h5>Calificaciones</h5>
+          <p class="mb-0">Ingresar notas</p>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h5>Horarios</h5>
+    <table class="table table-striped">
+      <thead class="table-light"><tr><th>Profesor</th><th>Curso</th><th>Día</th><th>Bloque</th><th>Asignatura</th></tr></thead>
+      <tbody>
+        {% for h in horarios %}
+        <tr>
+          <td>{{ h.profesor }}</td><td>{{ h.curso }}</td><td>{{ h.dia }}</td><td>{{ h.bloque }}</td><td>{{ h.asignatura }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+{% endblock %}
